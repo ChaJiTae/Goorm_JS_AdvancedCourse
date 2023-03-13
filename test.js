@@ -1,8 +1,14 @@
-var site = document.getElementById("goorm");
+var var2 = document.getElementsByName("passwd");
+console.log(var2);
 
-console.log(site.getAttribute("href"));
+var var3 = document.getElementsByTagName("input");
+console.log(var3);
 
-site.getAttribute("href")
-site.setAttribute("href","https://edu.goorm.io")
+// id 값에 어떤 값을 입력 -> 제출 버튼 클릭 --> 브라우저에서 "당신이 입력한 id값은 <입력한 값>입니다."
 
-console.log(site.getAttribute("href"));
+function getInputValue(name){
+    var inputVal = document.getElementsByTagName("input")[0].value;
+    alert(`당신이 입력한 값은 ${inputVal}입니다.`);
+}
+
+
