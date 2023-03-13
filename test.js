@@ -1,3 +1,8 @@
-var var1 = document.getElementById("root");
+var site = document.getElementById("goorm");
 
-var1.innerHTML = "<i>hello 민철</i>";
+console.log(site.getAttribute("href"));
+
+site.getAttribute("href")
+site.setAttribute("href","https://edu.goorm.io")
+
+console.log(site.getAttribute("href"));
