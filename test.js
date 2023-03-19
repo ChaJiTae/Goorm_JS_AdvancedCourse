@@ -1,64 +1,64 @@
-//const numArray = [1,2,3,4];
-//배열의 길이 구하기
-//console.log(numArray.length);
+const song = {author : '비',date: '2020-05-31',title:'깡',body:'화려한 조명이 나를 감싸네이예에'};
 
-//배열의 값 지정하기
-//const arr = [];
-//arr[2] = 3;
+//키 값 이름으로 변수를 선언하는 방법 - 구조분해할당
+//const {author,date,title,body} = song;
+//console.log(author,date,title,body);
 
-//배열의 길이와 배열의 요소 갯수는 같은가? -> NO
-//console.log(arr.length); // 3
-//console.log(arr); //[ <2 empty items>, 3 ]
+//키 값과 다른 이름으로 변수를 선언하는 방법 - 구조분해할당
+//const {author:name,date:time,title:mainTitle,body:lyric} = song;
+//console.log(name,time,mainTitle,lyric);
 
-//배열을 직접적으로 건드리는 방식
-//numArray.push(5,6);
-//console.log(numArray);
+//예시)
+//HTTP/1.1 200 OK
+//Content-type: application/json;charset=UTF-8
+var kakaoResponse = {
+    "tid": "T1234567890123456789",
+    "cid": "TC0ONETIME",
+    "status": "SUCCESS_PAYMENT",
+    "partner_order_id": "partner_order_id",
+    "partner_user_id": "partner_user_id",
+    "payment_method_type": "MONEY",
+    "item_name": "초코파이",
+    "quantity": 1,
+    "amount": {
+        "total": 2200,
+        "tax_free": 0,
+        "vat": 200,
+        "point": 0,
+        "discount": 0,
+        "green_deposit": 0
+    },
+    "canceled_amount": {
+        "total": 0,
+        "tax_free": 0,
+        "vat": 0,
+        "point": 0,
+        "discount": 0,
+        "green_deposit": 0
+    },
+    "cancel_available_amount": {
+        "total": 2200,
+        "tax_free": 0,
+        "vat": 200,
+        "point": 0,
+        "discount": 0,
+        "green_deposit": 0
+    },
+    "created_at": "2016-11-15T21:18:22",
+    "approved_at": "2016-11-15T21:20:48",
+    "payment_action_details": [
+        {
+            "aid": "A5678901234567890123",
+            "payment_action_type": "PAYMENT",
+            "payment_method_type": "MONEY",
+            "amount": 2200,
+            "point_amount": 0,
+            "discount_amount": 0,
+            "approved_at": "2016-11-15T21:20:48",
+            "green_deposit": 0
+        }
+    ]
+}
 
-//배열을 직접 건드리지 않는 방식
-//const result = numArray.concat(7,8);
-//console.log(numArray);
-//console.log(result);
-
-//배열을 직접적으로 건드리며 제거하는 메소드
-//numArray.pop();
-//console.log(numArray);
-
-//배열 순회하기
-//기존의 방법
-//const nameArr = ['민철','영수','영희','민수'];
-//
-//for(var i=0; i<nameArr.length;i++){
-//    console.log(`내 이름은 ${nameArr[i]}야`);
-//}
-
-//forEach
-//nameArr.forEach(function(name){
-//    console.log(`내 이름은 ${name}야`);
-//})
-
-//nameArr.forEach(name=>console.log(`내 이름은 ${name}야`));
-
-//numArray.forEach(function(num){
-//    console.log(num);
-//})
-
-//numArray.forEach(function(){
-//    console.log(numArray);
-//})
-
-//const oddArr = [1,3,5,7,9];
-
-//oddArr.map(num=>{console.log(num*2)});
-//const newArr = oddArr.map(num=>num*2);
-//console.log(newArr);
-
-//const oddArr = [1,3,5,7,9];
-//const newArr2 = oddArr.filter(name => name>5);
-//console.log(newArr2);
-
-const postlist =[{"date":"yesterday","id":1},{"date":"yesterday","id":2},{"date":"today","id":3}]
-const yesterdaypost = postlist.filter(post=>post.date ==="yesterday");
-console.log(yesterdaypost);
-
-const idUp = postlist.filter(post=>post.id >=2);
-console.log(idUp);
+const {item_name : name,approved_at : date,amount:{total : total_price}}=kakaoResponse;
+console.log(name,date,total_price);
