@@ -46,8 +46,19 @@
 //    console.log(numArray);
 //})
 
-const oddArr = [1,3,5,7,9];
+//const oddArr = [1,3,5,7,9];
 
 //oddArr.map(num=>{console.log(num*2)});
-const newArr = oddArr.map(num=>num*2);
-console.log(newArr);
+//const newArr = oddArr.map(num=>num*2);
+//console.log(newArr);
+
+//const oddArr = [1,3,5,7,9];
+//const newArr2 = oddArr.filter(name => name>5);
+//console.log(newArr2);
+
+const postlist =[{"date":"yesterday","id":1},{"date":"yesterday","id":2},{"date":"today","id":3}]
+const yesterdaypost = postlist.filter(post=>post.date ==="yesterday");
+console.log(yesterdaypost);
+
+const idUp = postlist.filter(post=>post.id >=2);
+console.log(idUp);
