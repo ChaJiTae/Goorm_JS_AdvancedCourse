@@ -60,5 +60,32 @@ var kakaoResponse = {
     ]
 }
 
-const {item_name : name,approved_at : date,amount:{total : total_price}}=kakaoResponse;
-console.log(name,date,total_price);
+//const {item_name , amount:{vat} , payment_action_details : [{aid}],payment_action_details:[{amount:totalPrice}]}=kakaoResponse;
+//console.log(item_name,vat,aid,totalPrice);
+
+//const {item_name : name,approved_at : date,amount:{total : total_price}}=kakaoResponse;
+//console.log(name,date,total_price);
+
+//const arr = [1,2,3];
+//const [one,two,three] = arr;
+//console.log(one,two,three); // 1 2 3
+
+//let [x,y,z] = [1,2,3];
+//console.log(x); // 1
+//console.log(y); // 2
+//console.log(z); // 3
+
+//let [a,b,c = 3] = [1,2];
+//console.log(x,y,z); // 1 2 3
+
+const nameArr = ['영희','철수','가온'];
+const [name1,name2,name3] = nameArr;
+console.log(name1,name2,name3);
+
+let [x,y,z] = [12,23,34];
+console.log(x);
+console.log(y);
+console.log(z);
+
+let [a,b,c=2] = [1,3];
+console.log(a,b,c);
