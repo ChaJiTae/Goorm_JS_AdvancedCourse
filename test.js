@@ -35,10 +35,19 @@ const allNumbers = [...oddNumbers,...evenNumbers];
 //console.log(...allNumbers);
 //console.log(allNumbers);
 
-//function sum(...rest){
-//    console.log(rest);
-//    //return num1+num2+num3+num4+num5+num6+num7+num8+num9+num10;
+//function sum(...rest) {
+//    return rest
 //}
+//
+//const result = sum(1, 2, 3, 4, 5, 6)
+//console.log(result) // [1, 2, 3, 4, 5, 6]
+
+function sum(...rest) {
+    return rest.reduce((acc, current) => acc + current, 0)
+  }
+
+  const result = sum(1, 2, 3, 4, 5, 6)
+  console.log(result)
 
 //function sum(...restName){
 //    console.log(restName);
@@ -51,14 +60,14 @@ const allNumbers = [...oddNumbers,...evenNumbers];
 //console.log(...allNumbers);
 //const result = sum(...allNumbers);
 
-const koreanUnivStudent = {
-    name : '김구름',
-    major : '컴공',
-    region : '서울',
-};
-
-//const {name,major,region} = koreanUnivStudent;
-//name을 뺀 부분집합 객체를 만들고 싶다.
-const {name,...rest} = koreanUnivStudent;
-//나는 구조분해할당을 할건데 name을 뺀 나머지로 부분집합을 만들거야
-console.log(rest);
+//const koreanUnivStudent = {
+//    name : '김구름',
+//    major : '컴공',
+//    region : '서울',
+//};
+//
+////const {name,major,region} = koreanUnivStudent;
+////name을 뺀 부분집합 객체를 만들고 싶다.
+//const {name,...rest} = koreanUnivStudent;
+////나는 구조분해할당을 할건데 name을 뺀 나머지로 부분집합을 만들거야
+//console.log(rest);
