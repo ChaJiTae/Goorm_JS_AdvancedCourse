@@ -1,34 +1,27 @@
-class Person {
-  //constructor()
-  constructor(name){
+class Army{
+  constructor(status,name){
+    this.status = status;
     this.name = name;
   }
 
-  //method
-  sayHello(){
-    console.log(`안녕 나는 ${this.name}이야`);
+  sayIntroduce(){
+    console.log(`${this.status}! ${this.name}입니다.`);
   }
 }
 
-//인스턴스 생성
-const minchul = new Person('minchul');
-const jitae = new Person('jitae');
-minchul.sayHello();
-jitae.sayHello();
+const jitae = new Army('상병','차지태');
+jitae.sayIntroduce();
 
-class Student extends Person{
-  //constructor
-  constructor(name,school,major){
-    super(name);
-    this.school = school;
-    this.major = major;
+class Turn extends Army{
+  constructor(status,name,job){
+    super(status,name);
+    this.job = job;
   }
 
-  //method
-  getMajor(){
-    console.log(`안녕 나는 ${this.name}이야, ${this.school}학교에 다니고 있고, ${this.major}이야`);
+  sayIntroduceMyName(){
+    console.log(`${this.status}! ${this.name}입니다. 보직은 ${this.job}입니다.`);
   }
 }
 
-const youngsu = new Student('강영수','무슨대','컴공');
-youngsu.getMajor();
+const hu = new Turn('이병','이후','암호병');
+hu.sayIntroduceMyName();
