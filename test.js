@@ -1,24 +1,29 @@
-//함수 내보내기
-export const sayHello = (name) => console.log(`안녕하세요 ${name}입니다.`);
+// try {
+//   console.log("try에 있는 문장");
+//   const result = document.getElementById(id); //있지도 않음
+// }
+// catch(e){
+//   console.log("catch에 있는 문장");
+//   //console.log(e); //에러 정보 확인
+//   //console.log(e.name); //에러의 이름정보만 확인
+//   //console.log(e.message); //에러객체가 발생시킨 메시지
+//   //console.log(e.stack); //자세한 에러에 대한 설명
+// }
+// finally{
+//   console.log("finally에 있는 문장");
+// }
 
-//변수나 상수 내보내기
-export const name = "jtiae";
-export let job = "통신";
-
-//배열 내보내기
-export const numArray = [1,2,3,4,5];
-
-//객체 내보내기
-export const armyObject = {
-  name1 : "jitae",
-  name2 : "gaon",
+try {
+	console.log("try에 있는 문장");
+	throw new Error("사용자가 정의한 에러가 발생했다!"); //Error 발생
 }
-
-//클래스 내보내기
-export class Army {
-  constructor(age){
-    this.age = age;
-  }
+catch(e){
+	console.log("catch에 있는 문장");
+  //console.log(e); //에러 정보 확인
+  console.log(e.name); //에러의 이름정보만 확인
+  console.log(e.message); //에러객체가 발생시킨 메시지
+  //console.log(e.stack); //자세한 에러에 대한 설명
 }
-
-import {모듈이름} from '모듈을 내보낸 파일이름';
+finally{
+  console.log("finally에 있는 문장");
+}
