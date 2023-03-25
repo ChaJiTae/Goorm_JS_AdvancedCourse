@@ -1,4 +1,3 @@
-```markdown
 # Study Title : ROKA_Goorm_JS
 ## Description
 - 강의제목 : 군SW역량강화프로그램 Goorm JS고급과정
