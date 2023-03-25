@@ -1,29 +1,37 @@
-// try {
-//   console.log("try에 있는 문장");
-//   const result = document.getElementById(id); //있지도 않음
-// }
-// catch(e){
-//   console.log("catch에 있는 문장");
-//   //console.log(e); //에러 정보 확인
-//   //console.log(e.name); //에러의 이름정보만 확인
-//   //console.log(e.message); //에러객체가 발생시킨 메시지
-//   //console.log(e.stack); //자세한 에러에 대한 설명
-// }
-// finally{
-//   console.log("finally에 있는 문장");
+// function sayHello(name){
+//     return new Promise((resolve,reject) => {
+//         setTimeout(()=>{
+//             console.log(`내 이름은 ${name}이야`);
+//             resolve(`${name}`); //resolve의 인자에는 Promise 객체의 리턴값을 준다.
+
+//             //reject(); // 실행이 안되었을 경우
+//         },2000);
+//     } )
 // }
 
-try {
-	console.log("try에 있는 문장");
-	throw new Error("사용자가 정의한 에러가 발생했다!"); //Error 발생
+// sayHello("민철")
+//     .then((name)=>{console.log(`그래 안녕 ${name}아`)})
+//     //.catch(()=>{//실행 안되었을 경우 실행할 문장})
+
+function sayHello(name){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log(`내 이름은 ${name}`);
+            resolve(`${name}`);
+        },2000);
+    })
 }
-catch(e){
-	console.log("catch에 있는 문장");
-  //console.log(e); //에러 정보 확인
-  console.log(e.name); //에러의 이름정보만 확인
-  console.log(e.message); //에러객체가 발생시킨 메시지
-  //console.log(e.stack); //자세한 에러에 대한 설명
+
+async function foo1(name){
+    const resultname = await sayHello(name);
+    console.log("2초 뒤 실행될 코드");
 }
-finally{
-  console.log("finally에 있는 문장");
+
+foo1("민철");
+
+function foo2(name){
+    const resultname = sayHello(name);
+    console.log("2초 뒤 실행될 코드");
 }
+
+foo2('민철');
