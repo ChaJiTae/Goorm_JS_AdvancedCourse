@@ -4,59 +4,22 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
+
+import ChatPage from './components/ChatPage/ChatPage';
+import LoginPage from './components/LoginPage/LoginPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
 
 function App() {
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Main page</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <hr />
-
         <Routes>
-          <Route exact path="/" element = {<Home />} />
-          <Route path="/about" element = {<About />} />
-          <Route path="/dashboard" element = {<Dashboard />} />
+          <Route exact path="/" element = {<ChatPage/>} />
+          <Route path="/login" element = {<LoginPage />} />
+          <Route path="/register" element = {<RegisterPage />} />
         </Routes>
-      </div>
     </Router>
   );
 }
 
 export default App;
-
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
