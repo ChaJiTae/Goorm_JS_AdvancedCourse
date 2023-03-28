@@ -9,7 +9,6 @@ function RegisterPage() {
 
   const password = useRef();
   password.current = watch("password");
-  console.log(watch("email"));
 
   return (
     <div className='auth-wrapper'>
