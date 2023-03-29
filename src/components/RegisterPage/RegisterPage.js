@@ -1,20 +1,27 @@
 import React,{useRef} from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
+import firebase from '../../firebase';
 
 function RegisterPage() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm({mode:"onChange"});
-  const onSubmit = data => console.log(data);
-
   const password = useRef();
   password.current = watch("password");
+  
+  const onSubmit = async (data) => {
+    let createdUser = await firebase
+        .auth()
+        .createdUserWithEmailAndPassword(data.email,data.password);
+  }
 
   return (
     <div className='auth-wrapper'>
+        
         <div style={{textAlign : 'center'}}>
           <h3>Register</h3>
         </div>  
+        
         <form onSubmit={handleSubmit(onSubmit)}>
           
           <label>Email</label>
