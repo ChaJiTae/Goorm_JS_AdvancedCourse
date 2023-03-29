@@ -1,4 +1,4 @@
-import React,{useRef} from 'react'
+import React,{useRef , useState} from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import firebase from 'firebase/compat/app';
@@ -8,13 +8,23 @@ import 'firebase/compat/firestore';
 function RegisterPage() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm({mode:"onChange"});
+  const {errorFromSubmit,setErrorFromSubmit} = useState()
   const password = useRef();
   password.current = watch("password");
   
   const onSubmit = async (data) => {
-    let createdUser = await firebase // eslint-disable-line no-unused-vars
+      try{
+        let createdUser = await firebase // eslint-disable-line no-unused-vars
         .auth()
         .createdUserWithEmailAndPassword(data.email,data.password);
+        console.log('createdUser',createdUser);
+      }catch(error){
+        setErrorFromSubmit(error.message)
+        setTimeout(()=>{
+          setErrorFromSubmit("");
+        },5000)
+      }
+
   }
 
   return (
@@ -61,6 +71,11 @@ function RegisterPage() {
                 && <p>This password confirm field is required</p>}
               {errors.password_confirm && errors.password_confirm.type === "validate" 
                 && <p>The password do not match</p>}
+          
+              {errorFromSubmit&&
+              <p>{errorFromSubmit}</p>
+              }
+          
           <input type="submit" value={"submit"}/>
         <Link style={{color:"gray",textDecoration:'none'}} to="/login">이미 아이디가 있다면...</Link>
         </form>
