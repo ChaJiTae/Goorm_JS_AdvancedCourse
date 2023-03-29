@@ -10,7 +10,7 @@ function RegisterPage() {
   password.current = watch("password");
   
   const onSubmit = async (data) => {
-    let createdUser = await firebase
+    let createdUser = await firebase // eslint-disable-line no-unused-vars
         .auth()
         .createdUserWithEmailAndPassword(data.email,data.password);
   }
