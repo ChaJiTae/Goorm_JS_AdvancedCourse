@@ -1,25 +1,30 @@
 import React,{useRef , useState} from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';  // eslint-disable-line no-unused-vars
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function RegisterPage() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm({mode:"onChange"});
-  const {errorFromSubmit,setErrorFromSubmit} = useState()
+  const {errorFromSubmit,setErrorFromSubmit} = useState("")
+  const [loading,setLoading] = useState(false)
+  
   const password = useRef();
   password.current = watch("password");
   
   const onSubmit = async (data) => {
       try{
-        let createdUser = await firebase // eslint-disable-line no-unused-vars
-        .auth()
-        .createdUserWithEmailAndPassword(data.email,data.password);
+        setLoading(true);
+        let createdUser = await  createUserWithEmailAndPassword(auth, data.email, data.password)
         console.log('createdUser',createdUser);
+        setLoading(false);
       }catch(error){
         setErrorFromSubmit(error.message)
+        setLoading(false);
         setTimeout(()=>{
           setErrorFromSubmit("");
         },5000)
@@ -76,7 +81,7 @@ function RegisterPage() {
               <p>{errorFromSubmit}</p>
               }
           
-          <input type="submit" value={"submit"}/>
+          <input type="submit" value={"submit"} disabled={loading}/>
         <Link style={{color:"gray",textDecoration:'none'}} to="/login">이미 아이디가 있다면...</Link>
         </form>
     </div>
