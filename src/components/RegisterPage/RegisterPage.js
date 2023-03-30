@@ -12,7 +12,6 @@ function RegisterPage() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm({mode:"onChange"});
   const {errorFromSubmit,setErrorFromSubmit} = useState("")
   const [loading,setLoading] = useState(false)
-  
   const password = useRef();
   password.current = watch("password");
   
@@ -29,12 +28,10 @@ function RegisterPage() {
           setErrorFromSubmit("");
         },5000)
       }
-
   }
 
   return (
-    <div className='auth-wrapper'>
-        
+    <div className='auth-wrapper'> 
         <div style={{textAlign : 'center'}}>
           <h3>Register</h3>
         </div>  
