@@ -6,6 +6,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { updateProfile } from "firebase/auth";
+import md5 from 'md5'
 
 function RegisterPage() {
 
@@ -20,6 +22,11 @@ function RegisterPage() {
         setLoading(true);
         let createdUser = await  createUserWithEmailAndPassword(auth, data.email, data.password)
         console.log('createdUser',createdUser);
+
+        await updateProfile(createdUser.user, {
+          displayName: data.name,
+          photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+        })
         setLoading(false);
       }catch(error){
         setErrorFromSubmit(error.message)
