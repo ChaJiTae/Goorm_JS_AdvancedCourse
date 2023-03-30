@@ -16,6 +16,8 @@
 4. 깊게 알아보는 ES6
 
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/reacthookform-EC5998?style=for-the-badge&logo=react-hook-form&logoColor=black">
+<img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
 
 5. 강의 소개 & 기본구조
 6. 인증처리
