@@ -12,29 +12,29 @@ import "firebase/compat/firestore";
 import "firebase/compat/storage";
 
 function App(props) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-useEffect(() => {
-firebase.auth().onAuthStateChanged((user) => {
-console.log("user", user);
-// 로그인이 된 상태
-if (user) {
-navigate("/");
-}
-// 로그인이 되지 않은 상태
-else {
-navigate("/login");
-}
-});
-}, [navigate]);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log("user", user);
+      // 로그인이 된 상태
+      if (user) {
+        navigate("/");
+      }
+      // 로그인이 되지 않은 상태
+      else {
+        navigate("/login");
+      }
+    });
+  }, [navigate]);
 
-return (
-<Routes>
-<Route exact path="/" element={<ChatPage />} />
-<Route path="/login" element={<LoginPage />} />
-<Route path="/register" element={<RegisterPage />} />
-</Routes>
-);
+  return (
+    <Routes>
+      <Route exact path="/" element={<ChatPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
+  );
 }
 
 export default App;
