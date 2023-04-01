@@ -4,12 +4,12 @@ import {useForm} from 'react-hook-form'
 import firebase from 'firebase/compat/app';  // eslint-disable-line no-unused-vars
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
-import { updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth"; // eslint-disable-line no-unused-vars
+import { auth } from "../../firebase"; // eslint-disable-line no-unused-vars
+import { updateProfile } from "firebase/auth"; // eslint-disable-line no-unused-vars
 //realtime database
-import { getDatabase, ref, set } from "firebase/database";
-const db = getDatabase();
+import { getDatabase, ref, set } from "firebase/database"; // eslint-disable-line no-unused-vars
+const db = getDatabase(); // eslint-disable-line no-unused-vars
 
 function LoginPage() {
 
