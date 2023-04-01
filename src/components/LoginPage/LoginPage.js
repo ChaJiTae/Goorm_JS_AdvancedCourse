@@ -1,28 +1,29 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
-import firebase from 'firebase/compat/app';  // eslint-disable-line no-unused-vars
+
+//firebase auth 
+import firebase from 'firebase/compat/app';                     // eslint-disable-line no-unused-vars
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { auth } from "../../firebase";                          // eslint-disable-line no-unused-vars
 import { createUserWithEmailAndPassword } from "firebase/auth"; // eslint-disable-line no-unused-vars
-import { auth } from "../../firebase"; // eslint-disable-line no-unused-vars
-import { updateProfile } from "firebase/auth"; // eslint-disable-line no-unused-vars
+import { updateProfile } from "firebase/auth";                  // eslint-disable-line no-unused-vars
+
 //realtime database
-import { getDatabase, ref, set } from "firebase/database"; // eslint-disable-line no-unused-vars
-const db = getDatabase(); // eslint-disable-line no-unused-vars
+import { getDatabase, ref, set } from "firebase/database";      // eslint-disable-line no-unused-vars
+const db = getDatabase();                                       // eslint-disable-line no-unused-vars
 
 function LoginPage() {
 
-  const { register, handleSubmit,formState: { errors } } = useForm({mode:"onChange"});
+  const {register,handleSubmit,formState:{errors}} = useForm({mode:"onChange"});
   const {errorFromSubmit,setErrorFromSubmit} = useState("")
   const [loading,setLoading] = useState(false)
   
   const onSubmit = async (data) => {
       try{
         setLoading(true);
-
         await firebase.auth().signInWithEmailAndPassword(data.email,data.password);
-
         setLoading(false);
       }catch(error){
         setErrorFromSubmit(error.message)
@@ -40,7 +41,6 @@ function LoginPage() {
         </div>  
         
         <form onSubmit={handleSubmit(onSubmit)}>
-          
           <label>Email</label>
           <input
               name="email" 

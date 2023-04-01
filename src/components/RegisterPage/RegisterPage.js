@@ -1,20 +1,25 @@
 import React,{useRef , useState} from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
+
+//firebase auth
 import firebase from 'firebase/compat/app';  // eslint-disable-line no-unused-vars
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { updateProfile } from "firebase/auth";
+
+//md5 module
 import md5 from 'md5'
+
 //realtime database
 import { getDatabase, ref, set } from "firebase/database";
 const db = getDatabase();
 
 function RegisterPage() {
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({mode:"onChange"});
+  const {register,handleSubmit,watch,formState:{errors}} = useForm({mode:"onChange"});
   const {errorFromSubmit,setErrorFromSubmit} = useState("")
   const [loading,setLoading] = useState(false)
   const password = useRef();
@@ -36,7 +41,6 @@ function RegisterPage() {
          name: createdUser.user.displayName,
          image: createdUser.user.photoURL
         });
-
         setLoading(false);
       }catch(error){
         setErrorFromSubmit(error.message)
@@ -45,7 +49,7 @@ function RegisterPage() {
           setErrorFromSubmit("");
         },5000)
       }
-  }
+    }
 
   return (
     <div className='auth-wrapper'> 
@@ -54,7 +58,6 @@ function RegisterPage() {
         </div>  
         
         <form onSubmit={handleSubmit(onSubmit)}>
-          
           <label>Email</label>
           <input
               name="email" 

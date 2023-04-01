@@ -1,10 +1,3 @@
-//import firebase from 'firebase/app'; // eslint-disable-line no-unused-vars
-//import 'firebase/auth';
-//import 'firebase/database';
-//import 'firebase/storage';
-//import { initializeApp } from "firebase/app";
-//import { getAuth } from "firebase/auth";
-
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -19,9 +12,6 @@ const firebaseConfig = {
   appId: "1:919539470815:web:935f4d7afb11c6d76bf46a",
   measurementId: "G-KLPFC7D7JX"
 };
-
-// const app = initializeApp(firebaseConfig);
-// export const auth = getAuth(app);
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
