@@ -8,6 +8,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { updateProfile } from "firebase/auth";
 import md5 from 'md5'
+//realtime database
+import { getDatabase, ref, set } from "firebase/database";
+const db = getDatabase();
 
 function RegisterPage() {
 
@@ -29,10 +32,10 @@ function RegisterPage() {
         })
 
         //firebase 데이터베이스에 저장하기
-        await firebase.database().ref("users").child(createdUser.user.uid).set({
-          name: createdUser.user.displayName,
-          image: createdUser.user.photoURL
-        })
+        await set(ref(db, "users/" + createdUser.user.uid), {
+         name: createdUser.user.displayName,
+         image: createdUser.user.photoURL
+        });
 
         setLoading(false);
       }catch(error){
