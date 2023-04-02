@@ -13,15 +13,21 @@ import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { Navigate } from "react-router-dom";
 
+import { useDispatch,useSelector } from "react-redux";
+import { setUser}from './redux/actions/user_action';
+
+
 function App(props) {
   const navigate = useNavigate();
-
+  let dispatch = useDispatch();
+  const isLoading = useSelector(state=>state.user.isLoading);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       console.log("user", user);
       // 로그인이 된 상태
       if (user) {
         navigate("/");
+        dispatch(setUser(user));
       }
       // 로그인이 되지 않은 상태
       else {
@@ -31,14 +37,22 @@ function App(props) {
     });
   }, [navigate]);
 
-  return (
-    <Routes>
-      <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/user" element={firebase.auth().currentUser ? (<UserPage />) : (<Navigate to="/login" replace={true} />)}/>
-    </Routes>
-  );
+  if(isLoading){
+    return (
+      <div>
+        ...Loading
+      </div>
+    )
+  } else{
+    return (
+      <Routes>
+        <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/user" element={firebase.auth().currentUser ? (<UserPage />) : (<Navigate to="/login" replace={true} />)}/>
+      </Routes>
+    );
+  }
 }
 
 export default App;
