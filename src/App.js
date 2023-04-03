@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import ChatPage from "./components/ChatPage/ChatPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
-import UserPage from "./components/UserPage/UserPage";
 
 // firebase import 부분
 import firebase from "firebase/compat/app";
@@ -49,7 +48,6 @@ function App(props) {
         <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/user" element={firebase.auth().currentUser ? (<UserPage />) : (<Navigate to="/login" replace={true} />)}/>
       </Routes>
     );
   }
