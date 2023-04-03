@@ -25,7 +25,7 @@ function App(props) {
       console.log("user", user);
       // 로그인이 된 상태
       if (user) {
-        //navigate("/");
+        navigate("/");
         //dispatch(setUser(user));
       }
       // 로그인이 되지 않은 상태
@@ -45,8 +45,8 @@ function App(props) {
   // } else{
     return (
       <Routes>
-        <Route path="/" element={<ChatPage/>}></Route>
-        {/* <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/> */}
+        {/* <Route path="/" element={<ChatPage/>}></Route> */}
+        <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/user" element={firebase.auth().currentUser ? (<UserPage />) : (<Navigate to="/login" replace={true} />)}/>
