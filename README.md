@@ -29,3 +29,6 @@
 12. Typing...
 13. Auto Scroll & Skeleton
 14. 데이터베이스, 스토리지 규칙 & 배포하기
+
+- #Profile fix 커밋 이후 작업 환경으로 인한 오류 발생 이후 작업에 관해서는 따라하거나 정리만 진행
+- happen 브랜치가 main이 될 예정
