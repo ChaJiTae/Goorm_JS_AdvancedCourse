@@ -2,10 +2,10 @@ import React from "react";
 import { IoIosChatboxes } from "react-icons/io";
 import Dropdown from "react-bootstrap/Dropdown";
 import Image from 'react-bootstrap/Image';
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 function UserPanel() {
-  const user = useSelector(state=>state.user.currentUser);
+  // const user = useSelector(state=>state.user.currentUser);
   return (
     <div>
       {/*Logo*/}
@@ -14,12 +14,13 @@ function UserPanel() {
       </h3>
 
       <div style={{ display: "flex", marginBottom: "1rem" }}>
-        <Image src={user&&user.photoURL} style={{width:'30px',height:'30px',marginTop:'3px'}} roundedCircle/>
+        <Image src="" style={{width:'30px',height:'30px',marginTop:'3px'}} roundedCircle/>
+        {/* <Image src={user&&user.photoURL} style={{width:'30px',height:'30px',marginTop:'3px'}} roundedCircle/> */}
         <Dropdown>
           <Dropdown.Toggle 
             style={{background:'transparent',border:'0px'}}
           id="dropdown-basic">
-            {user.displayName}
+            {/* {user.displayName} */}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
