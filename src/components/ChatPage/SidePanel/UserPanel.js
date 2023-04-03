@@ -3,7 +3,9 @@ import { IoIosChatboxes } from "react-icons/io";
 import Dropdown from "react-bootstrap/Dropdown";
 import Image from 'react-bootstrap/Image';
 import { useSelector } from "react-redux";
-import { auth } from '../../../firebase';
+import { auth, storage } from '../../../firebase'; // firebase 추가
+import mime from 'mime-types';
+
 
 function UserPanel() {
   const user = useSelector(state=>state.user.currentUser);
@@ -21,7 +23,17 @@ function UserPanel() {
   const handleUploadImage = async (event) =>{
     const file = event.target.files[0];
 
-    console.log('file',file);
+    const metadate = {contentType:mime.lookup(file.name)};
+
+    try{
+      //스토리지에 파일 저장하기
+      let uploadTaskSnapshot = await storage.ref() // firebase storage 사용
+        .child(`user_image/${user.uid}`)
+        .put(file,metadate)
+    }catch(error){
+
+    }
+
   }
 
   return (
