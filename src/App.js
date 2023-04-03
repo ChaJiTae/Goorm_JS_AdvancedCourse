@@ -13,7 +13,7 @@ import "firebase/compat/storage";
 import { Navigate } from "react-router-dom";
 
 import { useDispatch,useSelector } from "react-redux";
-import { setUser}from './redux/actions/user_action';
+import { setUser , clearUser}from './redux/actions/user_action';
 
 function App(props) {
   const navigate = useNavigate();
@@ -31,6 +31,8 @@ function App(props) {
       else {
         //register 페이지나 login 페이지로 이동되게끔 작성됨
         //만약 ChatPage 말고 다른 페이지가 있을 경우 제어해야함
+        // history.push("/login")
+        //dispatch(clearUser())
       }
     });
   }, [navigate]);
@@ -44,7 +46,6 @@ function App(props) {
   // } else{
     return (
       <Routes>
-        {/* <Route path="/" element={<ChatPage/>}></Route> */}
         <Route path="/" element={firebase.auth().currentUser ? (<ChatPage />) : (<Navigate to="/login" replace={true} />)}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
