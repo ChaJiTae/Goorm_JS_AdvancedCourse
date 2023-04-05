@@ -4,7 +4,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Image from 'react-bootstrap/Image';
 import { useDispatch, useSelector } from "react-redux";
 import { auth, storage } from '../../../firebase'; // firebase 추가
-import mime from 'mime-types';
+// import mime from 'mime-types';
 import {setPhotoURL} from '../../../redux/actions/user_action';
 import firebase from 'firebase/compat/app'; // 필요한 모듈만 import
 import 'firebase/compat/auth';
@@ -27,27 +27,27 @@ function UserPanel() {
   const handleUploadImage = async (event) =>{
     const file = event.target.files[0];
 
-    const metadate = {contentType:mime.lookup(file.name)};
+    // const metadate = {contentType:mime.lookup(file.name)};
 
     try{
       //스토리지에 파일 저장하기
-      let uploadTaskSnapshot = await storage.ref() // firebase storage 사용
-        .child(`user_image/${user.uid}`)
-        .put(file,metadate)
+      // let uploadTaskSnapshot = await storage.ref() // firebase storage 사용
+      //   .child(`user_image/${user.uid}`)
+      //   .put(file,metadate)
 
-      let downloadURL = await uploadTaskSnapshot.ref.getDownloadURL();
+      // let downloadURL = await uploadTaskSnapshot.ref.getDownloadURL();
 
       //프로필 이미지 수정
-      await firebase.auth().currentUser.updateProfile({
-        photoURL:downloadURL
-      })
+      // await firebase.auth().currentUser.updateProfile({
+      //   photoURL:downloadURL
+      // })
 
-      dispatch(setPhotoURL(downloadURL));
+      // dispatch(setPhotoURL(downloadURL));
 
       //데이터베이스 유저 이미지 수정
-      await firebase.database().ref("users")
-          .child(user.uid)
-          .update({image:downloadURL})
+      // await firebase.database().ref("users")
+      //     .child(user.uid)
+      //     .update({image:downloadURL})
 
     }catch(error){
       alert(error);
