@@ -3,7 +3,7 @@ import { FaRegSmileWink } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { database } from "./firebase";
+import { database } from "../../../firebase"; // 수정된 경로
 
 export class ChatRooms extends Component {
   state = {
@@ -67,7 +67,7 @@ export class ChatRooms extends Component {
           }}
         >
           <FaRegSmileWink style={{ marginRight: 3 }} />
-          CHAT ROOMS (1)
+          채팅방 (1)
           <FaPlus
             onClick={this.handleShow}
             style={{
@@ -77,10 +77,10 @@ export class ChatRooms extends Component {
             }}
           />
         </div>
-        {/*ADD Chat Room modal */}
+        {/*채팅방 추가 모달 */}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Create a chat room</Modal.Title>
+            <Modal.Title>채팅방 생성</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={this.handleSubmit}>
@@ -88,7 +88,7 @@ export class ChatRooms extends Component {
                 <Form.Label>방 이름</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter a chat room name"
+                  placeholder="채팅방 이름을 입력하세요"
                   onChange={(e) => this.setState({ name: e.target.value })}
                 />
               </Form.Group>
@@ -97,7 +97,7 @@ export class ChatRooms extends Component {
                 <Form.Label>방 설명</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter a chat room description"
+                  placeholder="채팅방 설명을 입력하세요"
                   onChange={(e) => this.setState({ description: e.target.value })}
                 />
               </Form.Group>
@@ -105,10 +105,10 @@ export class ChatRooms extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
-              Close
+              닫기
             </Button>
             <Button variant="primary" onClick={this.handleSubmit}>
-              Create
+              생성
             </Button>
           </Modal.Footer>
         </Modal>
