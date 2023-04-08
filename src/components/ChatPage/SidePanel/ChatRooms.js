@@ -4,14 +4,39 @@ import { FaPlus } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { database } from "../../../firebase"; // 수정된 경로
+import {setCurrentChatRoom} from '../../../redux/actions/chatRoom_action'
 
 export class ChatRooms extends Component {
   state = {
     show: false,
     name: "",
     description: "",
-    chatRoomsRef: database.ref("chatRooms")
+    chatRoomsRef: database.ref("chatRooms"),
+    chatRooms:[],
+    firstLoad : true,
+    activeChatRoomId:""
   };
+
+  componentDidMount(){
+    this.AddChatRoomsListeners();
+  }
+
+  setFirstChatRoom = ()=>{
+    const firstChatRoom = this.state.chatRooms[0]
+    if(this.state.firstLoad&&this.state.chatRooms.length>0){
+      this.props.dispatch(setCurrentChatRoom(firstChatRoom))
+      this.setState({activeChatRoomId:firstChatRoom.id})
+    }
+    this.setState({firstLoad:false})
+  }
+
+  AddChatRoomsListeners=()=>{
+    let chatRoomsArray = [];
+    this.state.chatRoomsRef.on("child_added",DataSnapshot=>{
+      chatRoomsArray.push(DataSnapshot.val());
+      this.setState({chatRooms:chatRoomsArray},()=>this.setFirstChatRoom());
+    })
+  }
 
   handleClose = () => this.setState({ show: false });
   handleShow = () => this.setState({ show: true });
@@ -55,6 +80,24 @@ export class ChatRooms extends Component {
 
   isFormValid = (name, description) => name && description;
 
+  changeChatRoom = (room) =>{
+    this.props.dispatch(setCurrentChatRoom(room));
+    this.setState({activeChatRoomId:room.id});
+  }
+
+  renderChatRooms = (chatRooms)=>{
+    return chatRooms.length > 0 && // 추가된 부분: return 키워드 추가
+      chatRooms.map(room=>(
+        <li 
+          key={room.id} 
+          style={{backgroundColor:room.id===this.state.activeChatRoomId && "#ffffff45"}}
+          onClick={()=> this.changeChatRoom(room)
+        }>
+          # {room.name}
+        </li>
+      ))
+  }
+
   render() {
     return (
       <div>
@@ -77,6 +120,11 @@ export class ChatRooms extends Component {
             }}
           />
         </div>
+
+        <ul style={{listStyleType:'none',padding:0}}>
+            {this.renderChatRooms(this.state.chatRooms)}
+        </ul>
+
         {/*채팅방 추가 모달 */}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
