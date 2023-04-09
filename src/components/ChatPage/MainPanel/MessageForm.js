@@ -67,26 +67,43 @@ function MessageForm() {
     inputOpenImageRef.current.click()
   }
 
-//  const handleUploadImage = (event) =>{
-//  const file = event.target.files[0];
-//    const filePath=`message/public/${file.name}`;
-//    const metadata = {contentType:mime.lookup(file.name)}
-//    try {
-//      //파일을 먼저 스토리지에 저장
-//      let uploadTask = storageRef.child(filePath).put(file,metadata)
-//    
-//      //파일 저장되는 퍼센티지 구하기
-//      uploadTask.on("state_changed",UploadTaskSnapshot=>{
-//        const percentage = Math.round(
-//          (UploadTaskSnapshot.bytesTransferred/UploadTaskSnapshot.totalBytes)*100
-//        )
-//        setPercentage(percentage);
-//      })
-//
-//    } catch (error) {
-//      alert(error)
-//    }
-//  }
+ const handleUploadImage = (event) =>{
+ const file = event.target.files[0];
+   const filePath=`message/public/${file.name}`;
+   //const metadata = {contentType:mime.lookup(file.name)}
+
+   setLoading(true);
+
+  //  try {
+  //    //파일을 먼저 스토리지에 저장
+  //    let uploadTask = storageRef.child(filePath).put(file,metadata)
+   
+  //    //파일 저장되는 퍼센티지 구하기
+  //    uploadTask.on("state_changed",UploadTaskSnapshot=>{
+  //      const percentage = Math.round(
+  //        (UploadTaskSnapshot.bytesTransferred/UploadTaskSnapshot.totalBytes)*100
+  //      )
+  //      setPercentage(percentage)
+  //    },
+  //    err =>{
+  //     console.error(err);
+  //     setLoading(false);
+  //    },
+  //    ()=>{
+  //       //저장이 다 된 후에 파일 메시지 전송(데이터베이스에 저장)
+  //       //저장된 파일을 다운로드 받을 수 잇는 URL rkwudhrl
+  //       uploadTask.snapshot.ref.getDownloadURL()
+  //         .then(downloadURL => {
+  //           messagesRef.child(chatRoom.id).push().set(createMessage())
+  //           setLoading(false);
+  //         })
+  //     }
+  //    )
+
+  //  } catch (error) {
+  //    alert(error)
+  //  }
+ }
 
   return (
     <div>
@@ -103,11 +120,12 @@ function MessageForm() {
       <div>{errors.map(errorMsg => <p style={{ color: "red" }} key={errorMsg}>{errorMsg}</p>)}</div>
 
       <Row>
-        <Col><button onClick={handleSubmit} className="message-form-button" style={{ width: '100%' }}>SEND</button></Col>
-        <Col><button onClick={handleOpenImageRef} className="message-form-button" style={{ width: '100%' }}>UPLOAD</button></Col>
+        <Col><button disabled={loading?true:false} onClick={handleSubmit} className="message-form-button" style={{ width: '100%' }}>SEND</button></Col>
+        <Col><button disabled={loading?true:false} onClick={handleOpenImageRef} className="message-form-button" style={{ width: '100%' }}>UPLOAD</button></Col>
       </Row>
 
       <input
+        accept='image/jpeg, image/png'
         style={{display:"none"}}
         type='file'
         ref={inputOpenImageRef}
