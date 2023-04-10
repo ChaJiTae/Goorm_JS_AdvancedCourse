@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { FaRegSmileWink } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form,Badge } from "react-bootstrap";
 import { connect } from "react-redux";
-import { database } from "../../../firebase"; // 수정된 경로
+import firebase from 'firebase/compat/app'; // 필요한 모듈만 import
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
+import 'firebase/compat/storage';
 import {setCurrentChatRoom, setPrivateChatRoom} from '../../../redux/actions/chatRoom_action'
 
 export class ChatRooms extends Component {
@@ -11,10 +14,12 @@ export class ChatRooms extends Component {
     show: false,
     name: "",
     description: "",
-    chatRoomsRef: database.ref("chatRooms"),
+    chatRoomsRef: firebase.database().ref("chatRooms"),
+    messagesRef : firebase.database().ref("messages"),
     chatRooms:[],
     firstLoad : true,
-    activeChatRoomId:""
+    activeChatRoomId:"",
+    notifications:[]
   };
 
   componentDidMount(){
@@ -38,8 +43,32 @@ export class ChatRooms extends Component {
     let chatRoomsArray = [];
     this.state.chatRoomsRef.on("child_added",DataSnapshot=>{
       chatRoomsArray.push(DataSnapshot.val());
-      this.setState({chatRooms:chatRoomsArray},()=>this.setFirstChatRoom());
+      this.setState({chatRooms:chatRoomsArray},
+          ()=>this.setFirstChatRoom());
+    
+    this.addNotificationListener(DataSnapshot.key);
+        })
+  }
+
+  addNotificationListener=(chatRoomId)=>{
+    this.state.messagesRef.child(chatRoomId).on("value",DataSnapshot=>{
+      if(this.props.chatRoom){
+        this.handleNotification(
+          chatRoomId,
+          this.props.chatRoom.id,
+          this.state.notifications,
+          DataSnapshot
+        )
+      }
     })
+  }
+
+  handleNotification=(chatRoomId,currentChatRoomId,notifications,DataSnapshot)=>{
+    //이미 notifications state 안에 알림 정보가 들어있는 채팅방과 그렇지 않은 채팅방을 나눠주기
+    let index = notifications.findIndex(notification=>
+      notification.id===chatRoomId)
+    
+    //목표는 방 하나 하나의 맞는 알림 정보를 notifications state에 넣어주기
   }
 
   handleClose = () => this.setState({ show: false });
@@ -99,6 +128,9 @@ export class ChatRooms extends Component {
           onClick={()=> this.changeChatRoom(room)
         }>
           # {room.name}
+          <Badge style={{float:'right',marginTop:'3px',alignItems:'right'}} variant="danger">
+              1
+          </Badge>
         </li>
       ))
   }
@@ -172,7 +204,8 @@ export class ChatRooms extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.currentUser
+    user: state.user.currentUser,
+    chatRoom:state.chatRoom.currentChatRoom
   }
 }
 
