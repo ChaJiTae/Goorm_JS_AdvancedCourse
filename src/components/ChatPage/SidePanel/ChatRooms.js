@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { database } from "../../../firebase"; // 수정된 경로
-import {setCurrentChatRoom} from '../../../redux/actions/chatRoom_action'
+import {setCurrentChatRoom, setPrivateChatRoom} from '../../../redux/actions/chatRoom_action'
 
 export class ChatRooms extends Component {
   state = {
@@ -86,6 +86,7 @@ export class ChatRooms extends Component {
 
   changeChatRoom = (room) =>{
     this.props.dispatch(setCurrentChatRoom(room));
+    this.props.dispatch(setPrivateChatRoom(false))
     this.setState({activeChatRoomId:room.id});
   }
 
