@@ -20,6 +20,7 @@ function MessageForm() {
   const messagesRef = firebase.database().ref("messages");
   const inputOpenImageRef = useRef();
   const storageRef = firebase.storage().ref();
+  const isPrivateChatRoom = useSelector(state => state.chatRoom.isPrivateChatRoom)
 
   const handleChange = (event) => {
     setContent(event.target.value);
@@ -67,12 +68,20 @@ function MessageForm() {
     inputOpenImageRef.current.click()
   }
 
- const handleUploadImage = (event) =>{
- const file = event.target.files[0];
-   const filePath=`message/public/${file.name}`;
-   //const metadata = {contentType:mime.lookup(file.name)}
+  const getPath = ()=>{
+    if(isPrivateChatRoom){
+      return `/message/private/${chatRoom.id}`
+    }else{
+      return `/message/public`
+    }
+  }
 
-   setLoading(true);
+ const handleUploadImage = (event) =>{
+    const file = event.target.files[0];
+    const filePath=`${getPath()}/${file.name}`;
+    //const metadata = {contentType:mime.lookup(file.name)}
+
+    setLoading(true);
 
   //  try {
   //    //파일을 먼저 스토리지에 저장
