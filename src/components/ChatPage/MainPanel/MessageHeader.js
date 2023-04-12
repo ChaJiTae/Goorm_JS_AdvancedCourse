@@ -1,83 +1,83 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Image from "react-bootstrap/Image";
-import Accordion from 'react-bootstrap/Accordion'
+import Accordion from "react-bootstrap/Accordion";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import firebase from 'firebase/compat/app'; // 필요한 모듈만 import
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import 'firebase/compat/storage';
+import firebase from "firebase/compat/app"; // 필요한 모듈만 import
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/storage";
 
 function MessageHeader({ handleSearchChange }) {
-  const chatRoom = useSelector(state=>state.chatRoom.currentChatRoom)
-  const isPrivateChatRoom = useSelector(state=>state.chatRoom.isPrivateChatRoom)
-  const [isFavorited,setIsFavorited] = useState(false);
+  const chatRoom = useSelector((state) => state.chatRoom.currentChatRoom);
+  const isPrivateChatRoom = useSelector(
+    (state) => state.chatRoom.isPrivateChatRoom
+  );
+  const [isFavorited, setIsFavorited] = useState(false);
   const usersRef = firebase.database().ref("users");
-  const user = useSelector(state => state.user.currentUser);
-  const userPosts = useSelector(state=>state.chatRoom.userPosts);
-  useEffect (()=>{
-    if(chatRoom&& user){
-      addFavoritedListener(chatRoom.id,user.uid)
+  const user = useSelector((state) => state.user.currentUser);
+  const userPosts = useSelector((state) => state.chatRoom.userPosts);
+  useEffect(() => {
+    if (chatRoom && user) {
+      addFavoritedListener(chatRoom.id, user.uid);
     }
-  },[])
+  }, []);
 
-  const addFavoritedListener = (chatRoomId,userId) => {
+  const addFavoritedListener = (chatRoomId, userId) => {
     usersRef
       .child(userId)
       .child("favorited")
       .once("value")
-      .then(data=>{
-        if(data.val() !== null){
-          const chatRoomIds = Object.keys(data.val())
-          const isAlreadyFavorited = chatRoomIds.includes(chatRoomId)
-          setIsFavorited(isAlreadyFavorited)
+      .then((data) => {
+        if (data.val() !== null) {
+          const chatRoomIds = Object.keys(data.val());
+          const isAlreadyFavorited = chatRoomIds.includes(chatRoomId);
+          setIsFavorited(isAlreadyFavorited);
         }
-      })
-  }
+      });
+  };
 
   const handleFavorite = () => {
     if (isFavorited) {
       usersRef
         .child(`${user.uid}/favorited`)
         .child(chatRoom.id)
-        .remove(err => {
+        .remove((err) => {
           if (err !== null) {
             console.error(err);
           }
         });
-      setIsFavorited(prev => !prev);
+      setIsFavorited((prev) => !prev);
     } else {
-      usersRef
-        .child(`${user.uid}/favorited`)
-        .update({
-          [chatRoom.id]: {
-            name: chatRoom.name,
-            description: chatRoom.description,
-            createBy: {
-              name: chatRoom.createBy.name,
-              image: chatRoom.createBy.image
-            }
-          }
-        });
-      setIsFavorited(prev => !prev);
+      usersRef.child(`${user.uid}/favorited`).update({
+        [chatRoom.id]: {
+          name: chatRoom.name,
+          description: chatRoom.description,
+          createBy: {
+            name: chatRoom.createBy.name,
+            image: chatRoom.createBy.image,
+          },
+        },
+      });
+      setIsFavorited((prev) => !prev);
     }
   };
 
-  const renderUserPosts = (userPosts)=>
+  const renderUserPosts = (userPosts) =>
     Object.entries(userPosts)
-      .sort((a,b)=>b[1].count - a[1].count)
-      .map(([key,val],i)=>(
+      .sort((a, b) => b[1].count - a[1].count)
+      .map(([key, val], i) => (
         <div key={i}>
           <img
-            style={{borderRadius:25}}
+            style={{ borderRadius: 25 }}
             width={48}
             height={48}
             className="mr-3"
@@ -86,14 +86,10 @@ function MessageHeader({ handleSearchChange }) {
           />
           <div>
             <h6>{key}</h6>
-            <p>
-              {val.count} 개
-            </p>
+            <p>{val.count} 개</p>
           </div>
-
         </div>
-      ))
-  
+      ));
 
   return (
     <div
@@ -110,21 +106,22 @@ function MessageHeader({ handleSearchChange }) {
         <Row>
           <Col>
             <h2>
-              {isPrivateChatRoom ? 
-              <FaLock style={{marginBottom:'10px'}} /> : <FaLockOpen style={{marginBottom:'10px'}} />
-              }
-              {chatRoom&&chatRoom.name} 
-              
-              {!isPrivateChatRoom&&
-              <span style={{cursor:'pointer'}} onClick={handleFavorite}>
-                {isFavorited ? 
-                      <MdFavorite style={{borderBottom:'10px'}}/> 
-                      : 
-                      <MdFavoriteBorder style={{borderBottom:'10px'}}/>
-                    }
-              </span>
-              }
-              
+              {isPrivateChatRoom ? (
+                <FaLock style={{ marginBottom: "10px" }} />
+              ) : (
+                <FaLockOpen style={{ marginBottom: "10px" }} />
+              )}
+              {chatRoom && chatRoom.name}
+
+              {!isPrivateChatRoom && (
+                <span style={{ cursor: "pointer" }} onClick={handleFavorite}>
+                  {isFavorited ? (
+                    <MdFavorite style={{ borderBottom: "10px" }} />
+                  ) : (
+                    <MdFavoriteBorder style={{ borderBottom: "10px" }} />
+                  )}
+                </span>
+              )}
             </h2>
           </Col>
           <Col>
@@ -141,17 +138,22 @@ function MessageHeader({ handleSearchChange }) {
             </InputGroup>
           </Col>
         </Row>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <p>
-            <Image src={chatRoom && chatRoom.createBy.image}
-              roundedCircle style={{width:'30px',height:'30px'}}/>
-               {" "} {chatRoom && chatRoom.createBy.name}
-          </p>
-        </div>
+        {!isPrivateChatRoom && (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <p>
+              <Image
+                src={chatRoom && chatRoom.createBy.image}
+                roundedCircle
+                style={{ width: "30px", height: "30px" }}
+              />{" "}
+              {chatRoom && chatRoom.createBy.name}
+            </p>
+          </div>
+        )}
         <Row>
           <Col>
             <Accordion>
-              <Accordion.Item eventKey="0" style={{padding:'0 1rem'}}>
+              <Accordion.Item eventKey="0" style={{ padding: "0 1rem" }}>
                 <Accordion.Header>Description</Accordion.Header>
                 <Accordion.Body>
                   {chatRoom && chatRoom.description}
@@ -161,10 +163,10 @@ function MessageHeader({ handleSearchChange }) {
           </Col>
           <Col>
             <Accordion>
-              <Accordion.Item eventKey="0" style={{padding:'0 1rem'}}>
+              <Accordion.Item eventKey="0" style={{ padding: "0 1rem" }}>
                 <Accordion.Header>Posts Count</Accordion.Header>
                 <Accordion.Body>
-                    {userPosts && renderUserPosts(userPosts)}
+                  {userPosts && renderUserPosts(userPosts)}
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

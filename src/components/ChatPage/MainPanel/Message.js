@@ -28,7 +28,7 @@ function Message({ message, user }) {
           alt={message.user.name}
         />
         <div
-          style={{ width:"100%",
+          style={{ width:"100%", zIndex:"-1",
             backgroundColor: isMessageMine(message, user) && "#ECECEC",
           }}
         >

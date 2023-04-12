@@ -21,6 +21,7 @@ function MessageForm() {
   const inputOpenImageRef = useRef();
   const storageRef = firebase.storage().ref();
   const isPrivateChatRoom = useSelector(state => state.chatRoom.isPrivateChatRoom)
+  const typingRef = firebase.database().ref("typing");
 
   const handleChange = (event) => {
     setContent(event.target.value);
@@ -52,6 +53,9 @@ function MessageForm() {
     //firebase에 메시지를 저장하는 부분
     try {
       await messagesRef.child(chatRoom.id).push().set(createMessage());
+      
+      typingRef.child(chatRoom.id).child(user.uid).remove();
+
       setLoading(false);
       setContent("");
       setErrors([]);
@@ -114,11 +118,19 @@ function MessageForm() {
   //  }
  }
 
+ const handleKeyDown = ()=>{
+  if(content){
+    typingRef.child(chatRoom.id).child(user.uid).set(user.displayName)
+  } else {
+    typingRef.child(chatRoom.id).child(user.uid).remove();
+  }
+ }
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId='exampleForm.ControlTextarea1'>
-          <Form.Control value={content} onChange={handleChange} as="textarea" rows={3} />
+          <Form.Control onKeyDown = {handleKeyDown} value={content} onChange={handleChange} as="textarea" rows={3} />
         </Form.Group>
       </Form>
       {
