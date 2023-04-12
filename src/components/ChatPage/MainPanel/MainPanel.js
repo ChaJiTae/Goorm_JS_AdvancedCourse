@@ -10,6 +10,9 @@ import 'firebase/compat/storage';
 import {setUserPosts} from '../../../redux/actions/chatRoom_action'
 
 export class MainPanel extends Component {
+
+  messageEndRef = React.createRef();
+
   state = {
     messages: [],
     messagesRef: firebase.database().ref("messages"),
@@ -43,6 +46,12 @@ export class MainPanel extends Component {
     if (chatRoom) {
       this.addMessageListeners(chatRoom.id)
       this.addTypingListeners(chatRoom.id)
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.messageEndRef){
+      this.messageEndRef.scrollIntoView({behavior:"smooth"})
     }
   }
 
@@ -172,6 +181,11 @@ export class MainPanel extends Component {
           }
 
           {this.renderTypingUsers(typingUsers)}
+          
+          {/* 타이핑 할때마다 여기로 오게끔 설정 */}
+          <div ref={node=>(this.messageEndRef=node)}/>
+
+
         </div>
 
         <MessageForm />
