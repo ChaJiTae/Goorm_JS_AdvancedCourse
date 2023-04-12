@@ -118,16 +118,18 @@ function MessageHeader({ handleSearchChange }) {
         </Row>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <p>
-            <Image /> user name
+            <Image src={chatRoom && chatRoom.createBy.image}
+              roundedCircle style={{width:'30px',height:'30px'}}/>
+               {" "} {chatRoom && chatRoom.createBy.name}
           </p>
         </div>
         <Row>
           <Col>
             <Accordion>
               <Accordion.Item eventKey="0" style={{padding:'0 1rem'}}>
-                <Accordion.Header>Accordion Item #1</Accordion.Header>
+                <Accordion.Header>Description</Accordion.Header>
                 <Accordion.Body>
-                  {/* Add content here */}
+                  {chatRoom && chatRoom.description}
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
