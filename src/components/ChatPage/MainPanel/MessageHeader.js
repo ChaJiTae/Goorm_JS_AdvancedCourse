@@ -22,6 +22,7 @@ function MessageHeader({ handleSearchChange }) {
   const [isFavorited,setIsFavorited] = useState(false);
   const usersRef = firebase.database().ref("users");
   const user = useSelector(state => state.user.currentUser);
+  const userPosts = useSelector(state=>state.chatRoom.userPosts);
   useEffect (()=>{
     if(chatRoom&& user){
       addFavoritedListener(chatRoom.id,user.uid)
@@ -69,6 +70,30 @@ function MessageHeader({ handleSearchChange }) {
       setIsFavorited(prev => !prev);
     }
   };
+
+  const renderUserPosts = (userPosts)=>
+    Object.entries(userPosts)
+      .sort((a,b)=>b[1].count - a[1].count)
+      .map(([key,val],i)=>(
+        <div key={i}>
+          <img
+            style={{borderRadius:25}}
+            width={48}
+            height={48}
+            className="mr-3"
+            src={val.image}
+            alt={val.name}
+          />
+          <div>
+            <h6>{key}</h6>
+            <p>
+              {val.count} 개
+            </p>
+          </div>
+
+        </div>
+      ))
+  
 
   return (
     <div
@@ -118,16 +143,18 @@ function MessageHeader({ handleSearchChange }) {
         </Row>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <p>
-            <Image /> user name
+            <Image src={chatRoom && chatRoom.createBy.image}
+              roundedCircle style={{width:'30px',height:'30px'}}/>
+               {" "} {chatRoom && chatRoom.createBy.name}
           </p>
         </div>
         <Row>
           <Col>
             <Accordion>
               <Accordion.Item eventKey="0" style={{padding:'0 1rem'}}>
-                <Accordion.Header>Accordion Item #1</Accordion.Header>
+                <Accordion.Header>Description</Accordion.Header>
                 <Accordion.Body>
-                  {/* Add content here */}
+                  {chatRoom && chatRoom.description}
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
@@ -135,9 +162,9 @@ function MessageHeader({ handleSearchChange }) {
           <Col>
             <Accordion>
               <Accordion.Item eventKey="0" style={{padding:'0 1rem'}}>
-                <Accordion.Header>Accordion Item #1</Accordion.Header>
+                <Accordion.Header>Posts Count</Accordion.Header>
                 <Accordion.Body>
-                  {/* Add content here */}
+                    {userPosts && renderUserPosts(userPosts)}
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
