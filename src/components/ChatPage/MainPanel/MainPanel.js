@@ -8,6 +8,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/database';
 import 'firebase/compat/storage';
 import {setUserPosts} from '../../../redux/actions/chatRoom_action'
+import Skeleton from '../../commons/components/Skeleton';
 
 export class MainPanel extends Component {
 
@@ -160,8 +161,18 @@ export class MainPanel extends Component {
       ))
     }
 
+    renderMessageSkeleton = (loading) =>{
+      loading&&(
+        <>
+         {[...Array(10)].map((v,i)=>(
+          <Skeleton key={i}/>
+         ))}
+        </>
+      )
+    }
+
   render() {
-    const { messages, searchTerm, searchResults,typingUsers } = this.state;
+    const { messages, searchTerm, searchResults,typingUsers ,messagesLoading} = this.state;
     return (
       <div style={{ padding: '2rem 2rem 0 2rem' }}>
         <MessageHeader handleSearchChange={this.handleSearchChange} />
@@ -174,6 +185,9 @@ export class MainPanel extends Component {
           marginBottom: '1rem',
           overflowY: 'auto',
         }}>
+
+        {this.renderMessageSkeleton(messagesLoading)}
+
           {searchTerm ?
             this.renderMessages(searchResults)
             :
