@@ -1,13 +1,13 @@
-# Study Title : ROKA_Goorm_JS
 ## Description
+- 목적 : 공부
 - 강의제목 : 군SW역량강화프로그램 Goorm JS고급과정
-- 기간 : '23.3.8. ~ ing
+- 공부기간 : '23.3.8. ~ '23.4.14.
 - 공부노트 : [Notion](https://tabby-slice-e73.notion.site/SW-JS-23a880e9110c434099139e07e352e669)
 
 <br>
 
 ##  Study Stack
-
+### First Chapter : JAVASCRIPT
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 
 1. JS 준비운동
@@ -15,6 +15,9 @@
 3. 하나씩 살펴보는 ES6
 4. 깊게 알아보는 ES6
 
+<br><br>
+
+### Second Chapter : REACT
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/reacthookform-EC5998?style=for-the-badge&logo=react-hook-form&logoColor=black">
 <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
@@ -30,5 +33,8 @@
 13. Auto Scroll & Skeleton
 14. 데이터베이스, 스토리지 규칙 & 배포하기
 
-- #Profile fix 커밋 이후 작업 환경으로 인한 오류 발생 이후 작업에 관해서는 따라하거나 정리만 진행
-- happen 브랜치가 main이 될 예정
+### About Roka Goorm chat 
+- [오류] mime-type 에러로 인해 이미지 관련하여 오류가 발생합니다.
+    - 유저프로필 수정 / 이미지메시지 업로드 시 mime-type 에러 발생
+
+`위와 같은 오류들로 인해 이 프로젝트는 공부 목적으로만 제작 되었으며 배포는 없습니다.`
