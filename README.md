@@ -2,7 +2,7 @@
 - 목적 : 공부
 - 강의제목 : 군SW역량강화프로그램 Goorm JS고급과정
 - 공부기간 : '23.3.8. ~ '23.4.14.
-- 공부노트 : [Notion](https://tabby-slice-e73.notion.site/SW-JS-23a880e9110c434099139e07e352e669)
+- 공부노트 : [Notion](https://ideal-jitae.notion.site/SW-JS-367adeaa20fa4071a789f789795fc8cc)
 
 <br>
 
