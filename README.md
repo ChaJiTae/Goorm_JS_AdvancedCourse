@@ -33,6 +33,7 @@
 13. Auto Scroll & Skeleton
 14. 데이터베이스, 스토리지 규칙 & 배포하기
 
+
 ### About Roka Goorm chat 
 - [오류] mime-type 에러로 인해 이미지 관련하여 오류가 발생합니다.
     - 유저프로필 수정 / 이미지메시지 업로드 시 mime-type 에러 발생
